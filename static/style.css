@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+}
+
+h1,
+h2 {
+    text-shadow: 0.1em 0.1em 0.2em #333;
+}
+
+.heading {
+    padding: 3vh;
+    text-align: center;
+    background-color: #215c84;
+    color: white;
+}
+
+.content {
+    margin: auto;
+    width: 15vw;
+    display: grid;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}
+
+.flask-input {
+    padding: 1vh;
+    margin-bottom: 2vh;
+    border: 1px solid #ccc;
+}
+
+button {
+    margin: auto;
+    width: 30%;
+    font-size: 1.2em;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+@media(max-width:600px) {
+    .content {
+        width: 90vw;
+    }
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="canonical" href="https://flask-membership-with-api.herokuapp.com" />
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+  <title>Membership Page</title>
+</head>
+
+<body>
+  <div class="heading">
+    <h2>歡迎光臨，這是會員頁</h2>
+  </div>
+  <div class="content" style="text-align: center;">
+    <h2>
+      {{user}}，歡迎登入系統
+    </h2>
+    <p>
+      <a href="/logout">登出系統</a>
+    </p>
+
+    <h2 style="font-weight:bold;">
+      查詢會員姓名
+    </h2>
+    <p>
+      <input type="text" class="flask-input" id="search_username">
+      <input type="button" value="查詢" id="search_button">
+      <p id="user_info"></p>
+    </p>
+
+    <h2 style="font-weight:bold;">
+      更新我的姓名
+    </h2>
+    <p>
+      <input type="text" class="flask-input" id="update_username">
+      <input type="button" value="更新" id="update_button">
+      <p id="update_info"></p>
+    </p>
+  </div>
+
+</body>
+<script>
+  $("#search_button").click(function (e) {
+    e.preventDefault();
+    $.ajax({
+      url: "/api/users",
+      method: "GET",
+      dataType: "json",
+      data: {
+        username: $("#search_username").val()
+      },
+      success: function (res) {
+        console.log("success1")
+        json = JSON.parse(JSON.stringify(res));
+        user_info = (json["data"] != null) ? json["data"][0].name + "(" + json["data"][0].username + ")" : "查無此帳號";
+        $("#user_info").text(user_info);
+      },
+      error: function (err) {
+        console.log(err)
+      },
+    })
+  })
+  $("#update_button").click(function (e) {
+    e.preventDefault();
+    var dataJSON = {};
+    dataJSON["name"] = $("#update_username").val();
+    $.ajax({
+      url: "/api/users",
+      method: "POST",
+      dataType: "json",
+      contentType: "application/json",
+      data: JSON.stringify(dataJSON),
+      success: function (res) {
+        json = JSON.parse(JSON.stringify(res));
+        if(json["data"][0].ok){
+          update_info = "更新成功"
+        }
+        else if(json["data"][0].error){
+          update_info = "更新失敗"
+        }
+        $("#update_info").text(update_info);
+        window.location.reload();
+      },
+      error: function (err) {
+        console.log(err)
+      },
+    })
+  })
+</script>
+
+</html>

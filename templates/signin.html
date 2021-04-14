@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="canonical" href="https://flask-membership-with-api.herokuapp.com" />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <title>Login Page</title>
+</head>
+
+<body>
+    <div class="heading">
+        <h2>歡迎光臨，請輸入帳號密碼</h2>
+    </div>
+    <form method="POST" action="/signup">
+        <div class="content">
+            <h2 style="text-align: center;color:red;">{{message}}</h2>
+            <h2 style="text-align: center;">註冊帳號</h2>
+            <label for="NAME">姓名 </label><input class="flask-input" type="text" placeholder="請輸入姓名" name="reg_name">
+            <label for="ACCT">帳號 </label><input class="flask-input" type="text" placeholder="請輸入帳號" name="reg_acct">
+            <label for="PWD">密碼 </label><input class="flask-input" type="password" placeholder="請輸入密碼" name="reg_pwd">
+            <button type="submit" id="reg_submit">註冊</button>
+        </div>
+    </form>
+    <hr />
+    <form method="POST" action="/signin">
+        <div class="content">
+            <h2 style="text-align: center;">登入系統</h2>
+            <label for="ACCT">帳號 </label><input class="flask-input" type="text" placeholder="請輸入帳號" name="login_acct">
+            <label for="PWD">密碼 </label><input class="flask-input" type="password" placeholder="請輸入密碼" name="login_pwd">
+            <button type="submit" id="login_submit">登入</button>
+        </div>
+    </form>
+</body>
+<script>
+    $("#reg_submit").click(function (e) {
+        if ($("input[name*='reg_name']").val() == "" || $("input[name*='reg_acct']").val() == "" || $("input[name*='reg_pwd']").val() == "") {
+            alert("尚有欄位未輸入，請再輸入，謝謝")
+            return false;
+        }
+    })
+
+    $("#login_submit").click(function (e) {
+        if ($("input[name*='login_acct']").val() == "" || $("input[name*='login_pwd']").val() == "") {
+            alert("尚有欄位未輸入，請再輸入，謝謝")
+            return false;
+        }
+    })
+
+</script>
+
+</html>
